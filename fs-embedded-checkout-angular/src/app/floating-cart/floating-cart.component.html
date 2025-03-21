@@ -1,0 +1,9 @@
+<div class="cart">
+  <h3>Cart Summary</h3>
+  <ul>
+    <li *ngFor="let item of cartData$ | async">
+      {{ item.name }} - {{ item.quantity }}
+      <button (click)="increaseQuantity(item)">+</button>
+    </li>
+  </ul>
+</div>
