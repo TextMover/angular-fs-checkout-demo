@@ -4,6 +4,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FloatingCartComponent } from './floating-cart/floating-cart.component';
 import { FastSpringService } from './fastspring.service';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,

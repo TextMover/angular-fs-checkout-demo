@@ -2,49 +2,74 @@
   <!-- Storefront Mode Switch -->
   <div class="switch-container">
     <label class="switch">
-      <input type="checkbox" [(ngModel)]="isTestMode" (change)="switchStorefront()" />
+      <input
+        type="checkbox"
+        [(ngModel)]="isTestMode"
+        (change)="switchStorefront()"
+      />
       <span class="slider round"></span>
     </label>
     <span> : {{ isTestMode ? "Test Mode" : "Real Mode" }}</span>
   </div>
 
-  <!-- Cart Section -->
-  <div class="cart-container">
-    <h2>Your Cart</h2>
+  <div class="checkout">
+    <div class="cart">
+      <!-- Cart Section -->
+      <div class="cart-container">
+        <h2>Your Cart</h2>
 
-    <!-- Display products if cart is not empty -->
-    <div *ngIf="selectedProducts.length > 0; else emptyCart">
-      <div *ngFor="let product of selectedProducts">
-        <div class="cart-item">
-          <img [src]="product.image" [alt]="product.display" class="product-image" />
-          <div>
-            <p>{{ product.display }}</p>
-            <p>Price: {{ product.price }}, Quantity: {{ product.quantity }}</p>
+        <!-- Display products if cart is not empty -->
+        <div *ngIf="selectedProducts.length > 0; else emptyCart">
+          <div *ngFor="let product of selectedProducts">
+            <div class="cart-item">
+              <img
+                [src]="product.image"
+                [alt]="product.display"
+                class="product-image"
+              />
+              <div>
+                <p>{{ product.display }}</p>
+                <p>
+                  Price: {{ product.price }}, Quantity: {{ product.quantity }}
+                </p>
+              </div>
+              <button (click)="removeProduct(product.path)">🗑</button>
+            </div>
           </div>
-          <button (click)="removeProduct(product.path)">🗑</button>
+        </div>
+
+        <!-- Empty Cart Template -->
+        <ng-template #emptyCart>
+          <p class="empty-cart">No products available</p>
+        </ng-template>
+      </div>
+
+      <!-- Cross Sale Section -->
+      <div
+        *ngIf="isCrossSaleEligible && crossSale"
+        class="cross-sale-container"
+      >
+        <h3>You might also be interested in...</h3>
+        <div class="cart-item">
+          <img
+            [src]="crossSale.image"
+            [alt]="crossSale.display"
+            class="product-image"
+          />
+          <div>
+            <p>{{ crossSale.display }}</p>
+            <p>Price: {{ crossSale.price }}</p>
+          </div>
+          <button (click)="addProduct(crossSale.path)">Add to Cart</button>
         </div>
       </div>
     </div>
+    <!-- FastSpring Embedded Checkout -->
+     <div class="fs-checkout">
+        <h2>Checkout</h2>
+        <p>Complete your purchase</p>
+      <div id="fsc-embedded-checkout-container" class="checkout-container"></div>
+     </div>
 
-    <!-- Empty Cart Template -->
-    <ng-template #emptyCart>
-      <p class="empty-cart">No products available</p>
-    </ng-template>
   </div>
-
-  <!-- Cross Sale Section -->
-  <div *ngIf="isCrossSaleEligible && crossSale" class="cross-sale-container">
-    <h3>You might also be interested in...</h3>
-    <div class="cart-item">
-      <img [src]="crossSale.image" [alt]="crossSale.display" class="product-image" />
-      <div>
-        <p>{{ crossSale.display }}</p>
-        <p>Price: {{ crossSale.price }}</p>
-      </div>
-      <button (click)="addProduct(crossSale.path)">Add to Cart</button>
-    </div>
-  </div>
-
-  <!-- FastSpring Embedded Checkout -->
-  <div id="fsc-embedded-checkout-container" class="checkout-container"></div>
 </div>

@@ -1,5 +1,24 @@
 .container {
   padding: 20px;
+
+}
+
+.cart{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: calc(100% - 600px);
+}
+
+.checkout {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
 }
 
 .switch-container {
@@ -85,4 +104,14 @@ button {
   max-width: 500px;
   min-height: 500px;
   margin-top: 20px;
+}
+
+.fs-checkout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }

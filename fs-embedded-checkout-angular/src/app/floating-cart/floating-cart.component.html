@@ -1,9 +1,59 @@
-<div class="cart">
-  <h3>Cart Summary</h3>
-  <ul>
-    <li *ngFor="let item of cartData$ | async">
-      {{ item.name }} - {{ item.quantity }}
-      <button (click)="increaseQuantity(item)">+</button>
-    </li>
-  </ul>
-</div>
+<!-- Floating Cart Button -->
+<button type="button" class="btn btn-primary cart" (click)="openModal(cartModal)">
+  <i class="bi bi-cart-check"></i> {{ selectedProducts.length }}
+</button>
+
+<!-- Bootstrap Modal -->
+<ng-template #cartModal>
+  <div class="modal fade show d-block">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Your Cart</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <h1>Products in cart: {{ selectedProducts.length }}</h1>
+          <div class="order-summary">
+            <div class="list" *ngIf="selectedProducts.length > 0; else noProducts">
+              <ul>
+                <li *ngFor="let product of selectedProducts">
+                  <div class="product">
+                    <img [src]="product.image" [alt]="product.display" />
+                    <div class="product-info">
+                      <h4>{{ product.display }}</h4>
+                      <p>{{ product.price }} x {{ product.quantity }} = {{ product.total }}</p>
+                      <div class="update-cart">
+                        <button class="btn btn-primary" (click)="updateQuantity(product, 1)">+</button>
+                        <button class="btn btn-danger" (click)="updateQuantity(product, -1)">-</button>
+                      </div>
+                    </div>
+                    <button class="btn btn-danger" (click)="removeProduct(product.path)">Remove</button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <ng-template #noProducts>
+              <p>Your Shopping Cart is Empty</p>
+            </ng-template>
+            <div class="summary">
+              <div class="card border-success mb-3" style="max-width: 18rem;">
+                <div class="card-header bg-transparent border-success">Order Summary</div>
+                <div class="card-body text-success">
+                  <h5 class="card-title">Total: {{ data.totalWithTax || 0 }}</h5>
+                </div>
+                <div class="card-footer bg-transparent border-success">
+                  <button class="btn btn-primary" (click)="checkout()">Checkout</button>
+                  <button class="btn btn-secondary" (click)="resetCart()">Clear Cart</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

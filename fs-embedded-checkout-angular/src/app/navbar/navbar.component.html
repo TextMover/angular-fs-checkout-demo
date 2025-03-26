@@ -1,4 +1,7 @@
 <nav>
   <a routerLink="/">Home</a> |
   <a routerLink="/checkout">Checkout</a>
+  <button type="button" class="btn btn-primary cart" (click)="checkout()">
+    <i class="bi bi-cart-check"></i> {{ data.originalTotal || 0 }}
+  </button>
 </nav>
