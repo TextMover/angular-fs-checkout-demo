@@ -1,0 +1,19 @@
+<!-- Hero Banner -->
+<div class="banner">
+  <div class="banner-content">
+    <h1>Effect plugins for music production</h1>
+    <button class="btn-primary" (click)="resetCart()">Reset Cart</button>
+  </div>
+</div>
+
+<!-- Products Section -->
+<div class="product-container">
+  <div *ngFor="let product of products">
+    <div class="product-card">
+      <img [src]="product.image || 'https://via.placeholder.com/500x300'" alt="Product Image">
+      <h3>{{ product.display || 'Product Title' }}</h3>
+      <p>{{ product.price ? product.price : 'Price Unavailable' }}</p>
+      <button (click)="buyProduct(product.path)">Add to Cart</button>
+    </div>
+  </div>
+</div>
